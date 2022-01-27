@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Web\KeyController;
+use App\Models\Key;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/keys/user/{id}/generate', [KeyController::class, 'generateKeyPair']);
+Route::get('/keys/user/{id}/public-key', [KeyController::class, 'getPublicKey']);
