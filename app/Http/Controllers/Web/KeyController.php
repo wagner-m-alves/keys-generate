@@ -38,8 +38,8 @@ class KeyController extends Controller
 
     public function getPublicKey($id)
     {
-        $key = Key::where('user_id', $id)->get();
+        $key = Key::where('user_id', $id)->first();
 
-        return KeyResource::collection($key);
+        return new KeyResource($key);
     }
 }

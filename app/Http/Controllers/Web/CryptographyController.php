@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Key;
 use App\Services\CryptographyService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 
 class CryptographyController extends Controller
 {
@@ -15,30 +13,22 @@ class CryptographyController extends Controller
 
     public function __construct(CryptographyService $cryptographyService)
     {
-        $this->cryptographyService = $cryptographyService;
-        $this->data = 'Teste de criptografia';
+        $this->cryptographyService  = $cryptographyService;
+        $this->data                 = 'Teste de criptografia';
     }
 
     public function encrypt($userId)
     {
-        $key = Key::where('user_id', $userId)->get();
-        $publicKey = $key[0]['pub_key'];
-
-        $encrypted = $this->cryptographyService->encrypt($this->data, $publicKey);
+        $encrypted = $this->cryptographyService->encrypt($this->data, $userId);
 
         return $encrypted;
     }
 
     public function decrypt($userId)
     {
-        $key            = Key::where('user_id', $userId)->get();
-        $publicKey      = $key[0]['pub_key'];
-        $data           = $this->cryptographyService->encrypt($this->data, $publicKey);
+        $data = $this->cryptographyService->encrypt($this->data, $userId); // Apenas para teste
 
-        $key            = Key::where('user_id', $userId)->get();
-        $privateKey     = Crypt::decrypt($key[0]['pri_key']);
-
-        $decrypted      = $this->cryptographyService->decrypt($data, $privateKey);
+        $decrypted = $this->cryptographyService->decrypt($data, $userId);
 
         return $decrypted;
     }

@@ -36,6 +36,6 @@ class User extends Authenticatable
     # relacionamentos
     public function keys()
     {
-        return $this->hasMany(Key::class);
+        return $this->hasOne(Key::class);
     }
 }
