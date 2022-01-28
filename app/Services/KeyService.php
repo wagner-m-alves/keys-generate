@@ -37,14 +37,4 @@ class KeyService
 
         return ['privateKey' => $privateKey, 'publicKey' => $publicKey];
     }
-
-    public function getPublicKey($userId)
-    {
-        return Key::where('user_id', $userId)->first()->pub_key;
-    }
-
-    public function getPrivateKey($userId)
-    {
-        return Key::where('user_id', $userId)->first()->pri_key;
-    }
 }
