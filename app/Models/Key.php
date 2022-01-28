@@ -12,12 +12,12 @@ class Key extends Model
 
 
     # Atributos
-    protected $fillable = ['user_id', 'pri_key', 'pub_key'];
+    protected $fillable = ['player_id', 'pri_key', 'pub_key'];
 
 
     # Relacionamentos
-    public function user()
+    public function player()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Player::class);
     }
 }

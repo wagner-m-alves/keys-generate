@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Player;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,9 +15,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $player = Player::first();
+
         User::create([
-            'name'      => 'User 1',
-            'email'     => 'user1@test.com',
+            'player_id' => $player->id,
+            'name'      => 'Harvey Specter',
+            'email'     => 'harvey.specter@test.com',
             'password'  => bcrypt('12345678'),
         ]);
     }

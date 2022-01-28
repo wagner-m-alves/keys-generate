@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Web\CryptographyController;
-use App\Http\Controllers\Web\KeyController;
-use App\Models\Key;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
-# Key
-Route::get('/keys/user/{id}/generate', [KeyController::class, 'generateKeyPair']);
-Route::get('/keys/user/{id}/public-key', [KeyController::class, 'getPublicKey']);
-
-# Cryptography
-Route::get('/cryptography/{userId}/encrypt', [CryptographyController::class, 'encrypt']);
-Route::get('/cryptography/{userId}/decrypt', [CryptographyController::class, 'decrypt']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->name('dashboard');
