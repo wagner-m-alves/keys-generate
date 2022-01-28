@@ -15,7 +15,7 @@ class KeyResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'pub_key' => $this->pub_key,
+            'public_key' => $this->pub_key,
         ];
     }
 }

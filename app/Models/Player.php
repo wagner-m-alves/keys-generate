@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use App\Traits\CryptoKeys;
+use App\Traits\{
+    CryptoKeysTrait,
+    CryptoTrait
+};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
     # Traits
-    use HasFactory, CryptoKeys;
+    use HasFactory, CryptoKeysTrait, CryptoTrait;
 
 
     # Atributos

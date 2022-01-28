@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Services\KeyService;
 
-trait CryptoKeys
+trait CryptoKeysTrait
 {
     public function generateCryptoKeys()
     {
@@ -15,5 +15,10 @@ trait CryptoKeys
             'pri_key'       => $keys['privateKey'],
             'pub_key'       => $keys['publicKey'],
         ]);
+    }
+
+    public function getPublicKey()
+    {
+        return $this->keys['pub_key'];
     }
 }
