@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Route;
 
 class SiteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum', 'verified'])->only('bet');
+    }
+
     public function welcome()
     {
         return Inertia::render('Welcome', [
@@ -17,5 +22,10 @@ class SiteController extends Controller
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
         ]);
+    }
+
+    public function bet()
+    {
+        return Inertia::render('Site/Bet');
     }
 }
