@@ -1,8 +1,19 @@
-### Keys System
+### KEYS SYSTEM
 
 ## Apresentação
 
-Sistema de geração de par chaves para criptografar dados em transito. Foi utilizado Resource para centralizar o retorno dos dados e Observer para criptografar a chave privada antes de armazena-lá no banco de dados. Foi criada uma camada de Serviços para realizar as tarefas de criação das chaves e criptografia de dados.
+Sistema de geração de par de chaves para criptografar dados em transito. Foi utilizado Observer para criar automaticamente as chaves criptográficas após o registro de um Jogador e para criptografar a chave privada antes de armazena-lá no banco de dados. Foi criada uma camada de Serviços para realizar as tarefas de criação das chaves e criptografia de dados. O processo de automatização da criptografia dos dados foi feito utilizando-se Events e listeners. Foi criada uma UI simples para facilitar os testes do projeto.
+
+## Tecnologias Primárias
+
+1. Laravel Framework;
+2. Inertia;
+3. Vue.JS;
+4. Tailwind CSS;
+
+## Tecnologias Secundárias
+
+1. Laravel Jetstream;
 
 ## Instuções de Execução
 
@@ -18,34 +29,40 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-4. Execute as migrations de banco de dados, usando o comando abaixo:
+4. Instale as dependências, usando os comandos abaixo:
+```
+composer install
+npm install
+npm run dev
+```
+
+5. Execute as migrations de banco de dados, usando o comando abaixo:
 ```
 php artisan migrate
 ```
 
-5. Execute as seeds para povoar o banco de dados com dados de teste, usando o comando abaixo:
+6. Execute as seeds para povoar o banco de dados com dados de teste, usando o comando abaixo:
 ```
 php artisan db:seed
 ```
 
 ## Testar o Sistema
 
-1. Gerar e salvar as chaves, acesse a URL abaixo: 
+1. Testar criação automática de chaves criptográficas: 
 ```
-/keys/user/1/generate
-```
-
-2. Recuperar a chave publica do usuário, acesse a URL abaixo:
- ```
-/keys/user/1/public-key
+Acesse a URI / do projeto e clique no link Register.
 ```
 
-3. Para criptografar dados, acesse a URL abaixo:
- ```
-/cryptography/1/encrypt
+2. Testar encriptação automática dos dados ao enviar para o Sistema de Pagamento:
+```
+Acesse a URI / do projeto e clique no botão APOSTAR.
 ```
 
-4. Para descriptografar dados, acesse a URL abaixo:
- ```
-/cryptography/1/decrypt
+3. Testar encriptação automática dos dados da resposta do Sistema de Pagamento:
+```
+Acesse a URI / do projeto e clique no botão TESTAR RETORNO DO SISTEMA DE PAGAMENTO.
+
+OBS: Para fazer esse teste certifique-se de estar logado com o usuário criado pelo seeder, o que pode ser feito com as credencias abaixo:
+email: harvey.specter@test.com;
+password: 12345678.
 ```

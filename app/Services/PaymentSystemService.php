@@ -44,7 +44,7 @@ class PaymentSystemService
          * serem retornados usando a chave publica do Player em questão.
          */
 
-        $player_id  = 2;
+        $player_id  = 1;
         $player     = Player::find($player_id);
         $data       = 'Dados a serem retornados pelo Sistema de Pagamento.';
 
