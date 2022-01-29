@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Web\Game\BetController;
 use App\Http\Controllers\Web\Panel\HomeController;
 use App\Http\Controllers\Web\Site\SiteController;
@@ -12,7 +13,6 @@ Route::get('/bet', [SiteController::class, 'bet'])->name('site.bet');
 
 
 # Private Routes
-
 // Panel
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
@@ -20,17 +20,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
 // Game
 Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'game'], function () {
-    Route::post('/bet', [BetController::class, 'store'])->name('game.bet.store');
+    Route::post('/bet/register', [BetController::class, 'register'])->name('game.bet.register');
 });
 
-
-# Test Routes
-Route::get('encrypt-test', function () {
-    $player     = auth()->user()->player;
-    $data       = 'Teste de Criptografia.';
-
-    $encrypted = $player->encryptMyData($data);
-    $decrypted = $player->decryptMyData($encrypted);
-
-    dd(['data' => $data, 'encrypted' => $encrypted, 'decrypted' => $decrypted]);
+// Payment
+Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'payment'], function () {
+    Route::get('/reply', [PaymentController::class, 'reply'])->name('payment.reply');
 });

@@ -1,37 +1,32 @@
 <?php
 
-namespace App\Events\Game;
+namespace App\Events;
 
+use App\Models\Player;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
-class BettingEvent
+class PaymentSystemResponseEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private $request;
+    private $player;
 
-    public function __construct($request)
+    public function __construct(Player $player)
     {
-        $this->request = $request;
+        $this->player = $player;
     }
 
-    public function getRequest()
+    public function getPlayer()
     {
-        return $this->request;
+        return $this->player;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');

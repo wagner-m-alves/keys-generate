@@ -64,7 +64,7 @@
 
         methods: {
             submit() {
-                this.form.post(this.route('game.bet.store'));
+                this.form.post(this.route('game.bet.register'));
             },
         },
     })

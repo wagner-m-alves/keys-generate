@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Web\Game;
 use App\Events\Game\BettingEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Game\BetRequest;
-use App\Services\KeyService;
 use App\Services\PaymentSystemService;
 
 class BetController extends Controller
@@ -16,10 +15,26 @@ class BetController extends Controller
      * requisição em questão usando a chave publica do Sistema
      * de Pagamento.
      */
-    public function store(BetRequest $request, PaymentSystemService $paymentSystemService)
+    public function register(BetRequest $request)
     {
-        event(new BettingEvent($request)); // Dispara o evento
+        // ----- Apenas para teste -----
+        $rawData = $request->bet;
+        // -----------------------------
 
-        // Código ...
+
+        event(new BettingEvent($request)); // Disparar o evento
+
+
+        // ----- Apenas para teste -----
+        $encrypted = $request->bet;
+
+        $paymentSystemService   = app(PaymentSystemService::class);
+        $decrypted              = $paymentSystemService->decryptData($encrypted);
+
+        dd($rawData, $encrypted, $decrypted);
+        // -----------------------------
+
+
+        // Enviar dados para o Sistema de Pagamento ...
     }
 }

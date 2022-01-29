@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\Game\BettingEvent;
-use App\Listeners\Game\EncryptDataBeforeSendingListener;
+use App\Events\PaymentSystemResponseEvent;
+use App\Listeners\EncryptDataReturnedByPaymentSystemListener;
+use App\Listeners\EncryptDataBeforeSendingListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,6 +25,10 @@ class EventServiceProvider extends ServiceProvider
 
         BettingEvent::class => [
             EncryptDataBeforeSendingListener::class,
+        ],
+
+        PaymentSystemResponseEvent::class => [
+            EncryptDataReturnedByPaymentSystemListener::class,
         ],
     ];
 

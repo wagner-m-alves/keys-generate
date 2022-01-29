@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Game;
+namespace App\Listeners;
 
 use App\Events\Game\BettingEvent;
 use App\Services\CryptographyService;
@@ -22,7 +22,7 @@ class EncryptDataBeforeSendingListener
 
     public function handle(BettingEvent $event)
     {
-        $data       = app()->instance(Illuminate\Http\Request::class, $event->request); // Instancia atual dos dados da requisição
+        $data       = app()->instance(Illuminate\Http\Request::class, $event->getRequest()); // Instancia atual dos dados da requisição
         $publicKey  = $this->paymentSystemService->getPublicKey(); // chave publica do Sistema de Pagamento
 
         foreach ($data->all() as $key => $value)
